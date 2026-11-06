@@ -131,6 +131,8 @@ uint32_t LightgunButtons::Poll(unsigned long minTicks)
             if(!debounceCount[i]) {
                 // read the pin, expected to return 0 or 1
                 uint32_t state = digitalRead(btn.pin);
+                // trigger (index 0) uses a normally-closed switch, so invert it
+                if(i == 0) state ^= 1;
 
                 // if a state fifo mask is defined
                 if(btn.debounceFifoMask) {
